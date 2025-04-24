@@ -2,15 +2,14 @@ import GeminiAssistantPlugin from 'main'
 import { GoogleGenerativeAI } from 'generative-ai.mjs'
 
 import type { GeminiPrompt } from 'Settings'
-export type Model = 'gemini-pro' | 'gemini-pro-vision'
 
 export default class Gemini {
     private genAI: GoogleGenerativeAI
-    private model: Model
+    private model: string
     private plugin: GeminiAssistantPlugin
     private apiKey: string
 
-    constructor(plugin: GeminiAssistantPlugin, model?: Model) {
+    constructor(plugin: GeminiAssistantPlugin, model?: string) {
         this.model = model || plugin.getSettings().model
         this.plugin = plugin
         this.apiKey = plugin.getSettings().apiKey
@@ -22,7 +21,7 @@ export default class Gemini {
         this.genAI = new GoogleGenerativeAI(this.apiKey)
     }
 
-    public startChat(model?: Model): GeminiChat {
+    public startChat(model?: string): GeminiChat {
         return new GeminiChat(
             this.plugin,
             this.genAI.getGenerativeModel({ model: this.model }),

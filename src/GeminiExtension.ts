@@ -84,7 +84,7 @@ export class GeminiExtension {
                 {
                     from: line.to,
                     // insert a callout block
-                    insert: '\n\n>[!gemini]+ Gemini\n> ',
+                    insert: `\n\n>[!gemini]+ Gemini (${option.model})\n> `,
                 },
             ],
             effects: [addGemini.of({ from: line.to, to: line.to, prompt, id })],

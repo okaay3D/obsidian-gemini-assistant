@@ -1,6 +1,5 @@
 import { PluginSettingTab, Setting } from 'obsidian'
 import GeminiAssistantPlugin from 'main'
-import { type Model } from 'GeminiService'
 import GeminiModelSetting from 'GeminiModelSetting'
 
 export enum Scope {
@@ -12,11 +11,12 @@ export interface GeminiPrompt extends GeminiChat {
     display: string
     scope: Scope
     prompt: string | any[]
+    model: string
 }
 
 export interface GeminiChat {
     config: GeminiConfig
-    model: Model
+    model: string
     type: 'chat' | 'generative'
 }
 
@@ -28,17 +28,18 @@ export type GeminiConfig = {
     topP: number
     topK: number
     inputTokenLimit: number
+    model: string
 }
 
 export interface Settings {
     apiKey: string
-    model: Model
+    model: string
     prompts: GeminiPrompt[]
     chat: GeminiChat
     safetyThreshold: string
 }
 
-export const DEFAULT_GEMINI_CONFIGS: Record<Model, GeminiConfig> = {
+export const DEFAULT_GEMINI_CONFIGS: Record<string, GeminiConfig> = {
     'gemini-pro': {
         topK: 1,
         topP: 1,
@@ -46,6 +47,7 @@ export const DEFAULT_GEMINI_CONFIGS: Record<Model, GeminiConfig> = {
         outputTokenLimit: 2048,
         maxOutputTokens: 400,
         inputTokenLimit: 30720,
+        model: 'gemini-pro',
     },
     'gemini-pro-vision': {
         topK: 32,
@@ -54,6 +56,7 @@ export const DEFAULT_GEMINI_CONFIGS: Record<Model, GeminiConfig> = {
         outputTokenLimit: 4096,
         maxOutputTokens: 400,
         inputTokenLimit: 12288,
+        model: 'gemini-pro-vision',
     },
 }
 

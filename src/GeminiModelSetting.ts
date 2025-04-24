@@ -32,6 +32,16 @@ export default class GeminiModelSetting extends Modal {
             })
 
             new Setting(this.contentEl)
+                .setName('Model Name')
+                .addText((text) => {
+                    text.setValue(p.model || '')
+                    text.inputEl.style.width = '400px'
+                    text.onChange((text) => {
+                        p.model = text
+                    })
+                });
+
+            new Setting(this.contentEl)
                 .setName('Scope')
                 .addDropdown((dropdown) => {
                     dropdown.addOption(Scope.SELECTION, 'Selection')
