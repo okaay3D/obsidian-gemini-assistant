@@ -92,13 +92,17 @@ export default class GeminiAssistantPlugin extends Plugin {
             leaf = leaves[0]
         } else {
             leaf = workspace.getRightLeaf(false)
-            await leaf.setViewState({
-                type: VIEW_TYPE_GEMINI_CHAT,
-                active: true,
-            })
+            if (leaf) {
+                await leaf.setViewState({
+                    type: VIEW_TYPE_GEMINI_CHAT,
+                    active: true,
+                })
+            }
         }
 
-        workspace.revealLeaf(leaf)
+        if (leaf) {
+            workspace.revealLeaf(leaf)
+        }
     }
     public updateEditorExtensions() {
         this.gemini = new GeminiExtension(this)
